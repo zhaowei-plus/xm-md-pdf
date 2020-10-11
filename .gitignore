@@ -1,0 +1,14 @@
+.vscode
+node_modules
+
+.idea
+
+# generated
+/dist/*
+/public
+
+# tests
+/.nyc_output
+/coverage
+/src/test/**/*.pdf
+/src/test/**/*.html

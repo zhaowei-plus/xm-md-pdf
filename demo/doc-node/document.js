@@ -49,7 +49,7 @@ const createPdfOptions = (name) => {
 }
 
 const launch_options = {
-	headless: false,
+	headless: true,
 	args: [
 		'–no-sandbox',
 		'--start-maximized'
@@ -67,27 +67,27 @@ const launch_options = {
 			watermark: '浙江讯盟科技有限公司',
 			file_download_dir: 'public/doc',
 			launch_options,
-			page_export_template: 'http://local.tms.uban360.net:8080/markdown1',
+			page_export_template: 'http://local.tms.uban360.net:8080/template',
 		}
 	)
 	//
 	// // 导出 pdf
-	// console.time('toPdf')
-	// const result = await mdPdf.toPdf(
-	// 	formatContent(document),
-	// 	options,
-	// 		`public/pdf/${document.name}.pdf`
-	// )
-	// console.timeEnd('toPdf')
+	console.time('toPdf')
+	const result = await mdPdf.toPdf(
+		formatContent(document),
+		options,
+			`public/pdf/${document.name}.pdf`
+	)
+	console.timeEnd('toPdf')
 
 	// 导出 doc
-	console.time('toDoc')
-	const result = await mdPdf.toDoc(
-		document.content,
-		`public/doc/${document.name}.doc`
-	)
-	console.timeEnd('toDoc')
-	// await mdPdf.closeBrowser()
+	// console.time('toDoc')
+	// const result = await mdPdf.toDoc(
+	// 	document.content,
+	// 	`public/doc/${document.name}.doc`
+	// )
+	// console.timeEnd('toDoc')
+	await mdPdf.closeBrowser()
 
 	// HtmlDocx html 转 pdf
 	// const html = fs.readFileSync('./assets/template.html', { encoding: 'utf8' })

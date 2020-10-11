@@ -12,13 +12,15 @@ export const openBrowser = async (config: any = {}) => {
 		Global.browser = await puppeteer.launch(launch_options)
 		Global.page = await Global.browser.newPage()
 
-		// 跳转到指定页面
+		// 只开启一个page，并跳转到我们配置的页面到指定页面
 		const { page_export_template } = Global.config
-		await Global.page.goto(page_export_template, {
-			waitUntil: 'networkidle0'
-		}).catch(error => {
-			throw error
-		});
+		if (page_export_template) {
+			await Global.page.goto(page_export_template, {
+				waitUntil: 'networkidle0', // 等到
+			}).catch(error => {
+				throw error
+			});
+		}
 		console.log('open browser complete')
 	}
 }

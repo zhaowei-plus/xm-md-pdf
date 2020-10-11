@@ -7,7 +7,7 @@
 				rows: 3,
 				columns: 6,
 				color: '#aaa', // 水印字体颜色
-				opacity: 0.3, // 水印透明度
+				opacity: 0.2, // 水印透明度
 				fontSize: 18, // 水印字体大小
 				font: '微软雅黑', // 水印字体
 				angle: 20, // 水印倾斜度数
