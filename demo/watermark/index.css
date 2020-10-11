@@ -1,0 +1,21 @@
+body {
+	position: relative;
+}
+
+/*.water-mask {*/
+/*	top: 0;*/
+/*	position: fixed;*/
+/*	width: 100%;*/
+/*	height: 100%;*/
+/*	pointer-events: none;*/
+/*	display: grid;*/
+/*}*/
+
+/*.water-mask__item {*/
+/*	text-align: center;*/
+/*	transform: rotate(-32deg);*/
+/*	width: 100%;*/
+/*	height: 200px;*/
+/*	line-height: 200px;*/
+/*}*/
+
