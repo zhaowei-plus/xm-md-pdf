@@ -49,7 +49,7 @@ const createPdfOptions = (name) => {
 }
 
 const launch_options = {
-	headless: true,
+	headless: false,
 	args: [
 		'–no-sandbox',
 		'--start-maximized'
@@ -70,8 +70,8 @@ const launch_options = {
 			page_export_template: 'http://local.tms.uban360.net:8080/template',
 		}
 	)
-	//
-	// // 导出 pdf
+
+	// 导出 pdf
 	console.time('toPdf')
 	const result = await mdPdf.toPdf(
 		formatContent(document),

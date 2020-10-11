@@ -17,21 +17,29 @@ export const parseFilePath = (filePath: string) => {
 }
 
 export default async (content: string, options: any, filePath?: string) => {
-	const { pdf_options, watermark: text } = Global.config
+	const { pdf_options, watermark } = Global.config
 	const html = renderHtml(content)
 	if (!Global.browser?.isConnected()) {
 		throw '浏览器启动失败，请确保已经调用过 openBrowser'
 	}
 
 	// 设置html content
-	await Global.page.setContent(html)
+	await Global.page.setContent(html, {
+		waitUntil: 'domcontentloaded'
+	})
 
 	// 指定位置插入插入 html 片段
 	// await Global.page.$eval('#content', (dom, html) => {
 	// 	dom.innerHTML = html
 	// }, html);
 
-	if (text) {
+	// 添加公共样式
+	await Global.page.addStyleTag({
+		path: path.resolve(__dirname, 'assets/markdown.css'),
+	});
+
+	console.log('watermark:', watermark)
+	if (watermark) {
 		await Global.page.addScriptTag({
 			path: path.resolve(__dirname, 'lib/waterMask.js'),
 		});
@@ -46,24 +54,25 @@ export default async (content: string, options: any, filePath?: string) => {
 					text
 				});
 			}
-		}, text)
+		}, watermark)
 	}
 
 	let result;
 	try {
+		await Global.page.emulateMediaType('screen');
 		if (filePath) {
 			const downloadConfig = parseFilePath(filePath)
 			fse.ensureDir(downloadConfig.path)
 			result = await Global.page.pdf({
-				...pdf_options,
 				...options,
+				...pdf_options,
 				path: `${downloadConfig.path}/${downloadConfig.fileName}`
 			})
 			console.log(`${filePath} export complete`)
 		} else {
 			result = await Global.page.pdf({
+				...options,
 				...pdf_options,
-				...options
 			})
 			console.log('pdf export complete')
 		}

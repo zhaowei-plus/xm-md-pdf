@@ -1,12 +1,11 @@
 import puppeteer from 'puppeteer-core';
+import * as R from 'ramda';
 import { Global } from './global';
+import { defaultConfig } from './config';
 
 // 打开浏览器
-export const openBrowser = async (config: any = {}) => {
-	Global.config = {
-		...Global.config,
-		...config
-	}
+export const openBrowser = async (config = {}) => {
+	Global.config = R.mergeDeepLeft(config, defaultConfig)
 	const { launch_options = {} } = Global.config
 	if (!Global.browser?.isConnected()) {
 		Global.browser = await puppeteer.launch(launch_options)

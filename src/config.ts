@@ -23,7 +23,7 @@ export const defaultConfig: Config = {
 		format: 'A4',
 		margin: {
 			top: '30mm',
-			right: '40mm',
+			right: '20mm',
 			bottom: '30mm',
 			left: '20mm',
 		},
