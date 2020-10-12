@@ -33,12 +33,6 @@ export default async (content: string, options: any, filePath?: string) => {
 	// 	dom.innerHTML = html
 	// }, html);
 
-	// 添加公共样式
-	await Global.page.addStyleTag({
-		path: path.resolve(__dirname, 'assets/markdown.css'),
-	});
-
-	console.log('watermark:', watermark)
 	if (watermark) {
 		await Global.page.addScriptTag({
 			path: path.resolve(__dirname, 'lib/waterMask.js'),

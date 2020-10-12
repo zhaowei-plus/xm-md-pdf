@@ -19,13 +19,13 @@ export const defaultConfig: Config = {
 
 	// html 转 pdf的配置参数
 	pdf_options: {
-		printBackground: true,
+		printBackground: false,
 		format: 'A4',
 		margin: {
-			top: '30mm',
-			right: '20mm',
-			bottom: '30mm',
-			left: '20mm',
+			top: '20mm',
+			right: '10mm',
+			bottom: '20mm',
+			left: '10mm',
 		},
 	},
 	// puppeteer 启动浏览器的参数

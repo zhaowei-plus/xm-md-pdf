@@ -30,11 +30,6 @@ export default async (content: string, filePath?: string) => {
 		waitUntil: 'domcontentloaded'
 	})
 
-	// 添加公共样式
-	await Global.page.addStyleTag({
-		path: path.resolve(__dirname, 'assets/markdown.css'),
-	});
-
 	// 指定位置插入插入 html 片段
 	// await Global.page.$eval('#content', (dom, html) => {
 	// 	dom.innerHTML = html

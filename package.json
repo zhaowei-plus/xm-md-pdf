@@ -1,6 +1,6 @@
 {
   "name": "xm-md-pdf",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "CLI tool for converting Markdown files to PDF and DOC.",
   "keywords": [
     "markdown-to-pdf",

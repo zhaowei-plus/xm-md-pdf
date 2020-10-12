@@ -49,7 +49,7 @@ const createPdfOptions = (name) => {
 }
 
 const launch_options = {
-	headless: false,
+	headless: true,
 	args: [
 		'–no-sandbox',
 		'--start-maximized'
