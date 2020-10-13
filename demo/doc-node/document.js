@@ -72,22 +72,23 @@ const launch_options = {
 	)
 
 	// 导出 pdf
-	console.time('toPdf')
-	const result = await mdPdf.toPdf(
-		formatContent(document),
-		options,
-			`public/pdf/${document.name}.pdf`
-	)
-	console.timeEnd('toPdf')
+	// console.time('toPdf')
+	// const result = await mdPdf.toPdf(
+	// 	formatContent(document),
+	// 	options,
+	// 		`public/pdf/${document.name}.pdf`
+	// )
+	// console.timeEnd('toPdf')
 
 	// 导出 doc
-	// console.time('toDoc')
-	// const result = await mdPdf.toDoc(
-	// 	document.content,
-	// 	`public/doc/${document.name}.doc`
-	// )
-	// console.timeEnd('toDoc')
+	console.time('toDoc')
+	const result = await mdPdf.toDoc(
+		document.content,
+		// `public/doc/${document.name}.doc`
+	)
+	console.timeEnd('toDoc')
 	await mdPdf.closeBrowser()
+	console.log('result:', result)
 
 	// HtmlDocx html 转 pdf
 	// const html = fs.readFileSync('./assets/template.html', { encoding: 'utf8' })

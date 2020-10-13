@@ -1,13 +1,13 @@
 import path from 'path'
 import fse from 'fs-extra'
+
+import * as childProcess from 'child_process'
 // import * as fse from 'fs-extra'
 import { Global } from './global'
 import { renderHtml } from './render'
 
-const HtmlDocx = require('html-docx-js')
-
 // 解析路径
-export const parseFilePath = (filePath: string = `download/${Math.random()}.doc`) => {
+export const parseFilePath = (filePath: string = `${Math.random()}/${Math.random()}.docx`) => {
 	const {
 		dir,
 		name,
@@ -15,6 +15,7 @@ export const parseFilePath = (filePath: string = `download/${Math.random()}.doc`
 	} = path.parse(filePath)
 	return {
 		path: dir,
+		name,
 		fileName: `${name}${ext}`,
 	}
 }
@@ -35,17 +36,19 @@ export default async (content: string, filePath?: string) => {
 	// 	dom.innerHTML = html
 	// }, html);
 
-	let result;
+	let result: any = filePath;
 	try {
 		const pageHtml = await Global.page.content()
-		const docx = HtmlDocx.asBlob(pageHtml)
-		if (filePath) {
-			const downloadConfig = parseFilePath(filePath)
-			fse.ensureFileSync(`${downloadConfig.path}/${downloadConfig.fileName}`)
-			fse.writeFileSync(`${downloadConfig.path}/${downloadConfig.fileName}`, docx);
-		} else {
-			result = docx
+		const downloadConfig = parseFilePath(filePath)
+		const targetFile = `${downloadConfig.path}/${downloadConfig.name}`
+		fse.ensureFileSync(`${targetFile}.html`)
+		fse.writeFileSync(`${targetFile}.html`, pageHtml);
+		childProcess.execSync(`pandoc -s ${targetFile}.html -o ${targetFile}.docx`)
+		if (!filePath) {
+			result = fse.readFileSync(`${targetFile}.docx`);
+			fse.removeSync(`${targetFile}.docx`);
 		}
+		fse.rmdirSync(downloadConfig.path, { recursive: true });
 		console.log('doc export complete')
 	} catch (error) {
 		console.error(error)

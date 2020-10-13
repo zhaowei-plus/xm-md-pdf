@@ -51,7 +51,7 @@ export default async (content: string, options: any, filePath?: string) => {
 		}, watermark)
 	}
 
-	let result;
+	let result: any = filePath;
 	try {
 		await Global.page.emulateMediaType('screen');
 		if (filePath) {
